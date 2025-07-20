@@ -1,0 +1,12 @@
+@import "tailwindcss";
+
+
+@theme {
+  --color-primary: #198754;
+}
+.attribute-name{
+  @apply text-primary font-bold
+}
+.attribute-detail{
+  @apply text-black
+}
