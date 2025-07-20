@@ -1,22 +1,28 @@
+import ChatBox from "./components/ChatBox";
 import DetectInformation from "./components/DetectInformation";
+import DetectionHistory from "./components/DetectionHistory";
 import ImageChooser from "./components/ImageChooser";
+import { Toaster } from "react-hot-toast";
 
 export default function Home() {
   return (
     <div className="flex flex-col h-full w-full">
-      <div className="h-16 bg-primary"></div>
-      <div className=" w-full mx-auto h-full flex justify-center">
+      <ChatBox />
+      <div className="h-12 bg-primary"></div>
+      <div className="w-full mx-auto h-full flex justify-center">
         <div className="max-w-7xl h-full w-full flex">
-          <div className="w-2/3 grid place-items-center">
+          <div className="w-3/5 grid p-5 h-full place-items-center">
             <ImageChooser />
+            <DetectionHistory />
           </div>
-          <div className=" w-1/3 h-[calc(100vh-64px)]">
-            <div className="h-full p-5 overflow-auto">
+          <div className="w-2/5 p-5 h-[calc(100vh-64px)]">
+            <div className="h-full overflow-auto">
               <DetectInformation />
             </div>
           </div>
         </div>
       </div>
+      <Toaster />
     </div>
   );
 }

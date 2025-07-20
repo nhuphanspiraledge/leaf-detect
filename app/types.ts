@@ -15,3 +15,12 @@ export interface IDiseaseConfidence {
     "disease": string,
       "confidence":number
 }
+export interface IHistoryItem {
+  user_id: number;
+  full_name: string;
+  disease_name: string;
+  timestamp: string;
+}
+export interface IHistories{
+  history: IHistoryItem[]
+}

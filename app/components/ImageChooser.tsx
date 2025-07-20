@@ -4,22 +4,23 @@ import { useMyContext } from "../Provider";
 
 const ImageChooser = () => {
   const { image, setImage, predict, isPredicting } = useMyContext();
-
+  const [uploadedImg, setUploadedImg] = useState<string>();
   const fileInputRef = useRef<HTMLInputElement | null>(null);
 
   const loadFile = (event: any) => {
     const file = event.target.files?.[0];
     if (file) {
       setImage(file);
+      setUploadedImg(URL.createObjectURL(file));
     }
   };
 
   return (
     <div className="flex justify-center flex-col gap-5 items-center ">
-      <div className="relative rounded-full overflow-hidden group w-[500px] h-[500px]">
+      <div className="relative rounded-full overflow-hidden group w-[350px] h-[350px]">
         <img
           src={
-            image ??
+            uploadedImg ??
             "https://cdn.pixabay.com/photo/2017/08/06/21/01/louvre-2596278_960_720.jpg"
           }
           alt="leaf-image"
@@ -44,17 +45,18 @@ const ImageChooser = () => {
       </div>
       <div className="flex gap-2">
         <button
-          onClick={predict}
+          onClick={() => predict("plantdoc")}
           disabled={isPredicting}
-          className="rounded-sm bg-primary/80 hover:bg-primary py-1.5 px-4 cursor-pointer text-white"
+          className="rounded-sm bg-primary/90 hover:bg-primary disabled:bg-primary/40 py-1.5 px-4 enabled:cursor-pointer text-white"
         >
-          Detect by PlantDoc
+          Detect by Plant Doc
         </button>
         <button
-          onClick={predict}
-          className="rounded-sm bg-primary/80 hover:bg-primary py-1.5 px-4 cursor-pointer text-white"
+          onClick={() => predict("plantvillage")}
+          disabled={isPredicting}
+          className="rounded-sm bg-primary/90 hover:bg-primary disabled:bg-primary/40 py-1.5 px-4 enabled:cursor-pointer text-white"
         >
-          Detect by PlantVillage
+          Detect by Plant Village
         </button>
       </div>
     </div>
