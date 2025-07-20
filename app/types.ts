@@ -16,11 +16,26 @@ export interface IDiseaseConfidence {
       "confidence":number
 }
 export interface IHistoryItem {
-  user_id: number;
   full_name: string;
   disease_name: string;
   timestamp: string;
 }
 export interface IHistories{
   history: IHistoryItem[]
+}
+export interface IChatHistories{
+  "history": IChatHistoryItem[]
+}
+export interface IChatHistoryItem{
+  message:string,
+  reply: string
+}
+export interface IChatRequest {
+  username: string;
+  message: string;
+  history: string[];
+}
+
+export interface IChatResponse {
+  reply: string;
 }
