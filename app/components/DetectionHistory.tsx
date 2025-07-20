@@ -6,7 +6,7 @@ import { useMyContext } from "../Provider";
 const DetectionHistory = () => {
   const { histories } = useMyContext();
   return (
-    <div className="mt-10 overflow-hidden w-full max-w-4xl mx-auto">
+    <div className=" overflow-hidden w-full max-w-4xl mx-auto">
       <h2 className="text-2xl font-bold text-center mb-2">Detection History</h2>
       <div className=" overflow-auto h-[calc(100vh-560px)]  border border-r-0 border-gray-300">
         <table className="min-w-full h-full table-auto border-r border-gray-300">

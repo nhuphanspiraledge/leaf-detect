@@ -11,7 +11,7 @@ export default function Home() {
       <div className="h-12 bg-primary"></div>
       <div className="w-full mx-auto h-full flex justify-center">
         <div className="max-w-7xl h-full w-full flex">
-          <div className="w-3/5 grid p-5 h-full place-items-center">
+          <div className="flex-1 grid h-full place-items-center">
             <ImageChooser />
             <DetectionHistory />
           </div>

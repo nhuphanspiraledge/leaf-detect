@@ -47,9 +47,9 @@ const ChatBox = () => {
       {!isOpen ? (
         <div
           onClick={() => setIsOpen(true)}
-          className="bg-primary/80 hover:bg-primary transition-colors text-white rounded-full h-20 w-20 flex items-center justify-center shadow-lg cursor-pointer"
+          className="bg-primary/80 overflow-hidden hover:bg-primary transition-colors text-white rounded-full h-20 w-20 flex items-center justify-center shadow-lg cursor-pointer"
         >
-          💬
+          <img src="/tend.png" alt="" />
         </div>
       ) : (
         <div className="h-[500px] w-[350px] bg-white shadow-xl rounded-xl flex flex-col overflow-hidden border border-gray-200">

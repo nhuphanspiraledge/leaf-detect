@@ -13,7 +13,7 @@ const DetectInformation = () => {
   const { predictData } = useMyContext();
 
   if (!predictData) {
-    return <p className="text-gray-500">No prediction data available.</p>;
+    return;
   }
 
   const explanation = predictData.explanation ?? {};
