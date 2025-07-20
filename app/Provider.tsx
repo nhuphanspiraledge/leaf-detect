@@ -46,8 +46,7 @@ export const ImageProvider = ({ children }: { children: ReactNode }) => {
 
   const { data: historiesData, refetch: refetchHistories } =
     useGetHistory(mockUser);
-  const { data: chatHistoriesData, refetch: refetchChatHistories } =
-    useGetChatHistory(mockUser);
+  const { data: chatHistoriesData } = useGetChatHistory(mockUser);
   const predict = (modelType: string) => {
     if (!image) return toast.error("Please upload image first.");
     const formData = new FormData();
