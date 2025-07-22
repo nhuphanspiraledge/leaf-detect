@@ -20,6 +20,7 @@ interface ContextType {
   predict: (modelType: string) => void;
   isPredicting: boolean;
   predictData: IPredictModel | null;
+  setPredictData: (data: IPredictModel | null) => void;
   histories: IHistories | null;
   chatHistories: IChatHistories | null;
   sendChat: (message: string) => void;
@@ -111,6 +112,7 @@ export const ImageProvider = ({ children }: { children: ReactNode }) => {
         predict,
         isPredicting,
         predictData,
+        setPredictData,
         histories,
         chatHistories,
         sendChat,

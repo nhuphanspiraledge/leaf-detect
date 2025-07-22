@@ -1,6 +1,7 @@
 export interface IPredictModel {
   "plant": string,
   "top_prediction": string,
+  "severity_level": string,
   "disease_confidences":IDiseaseConfidence[],
   "explanation":IExplanation
 }
@@ -16,6 +17,7 @@ export interface IDiseaseConfidence {
       "confidence":number
 }
 export interface IHistoryItem {
+  record_id: number;
   full_name: string;
   disease_name: string;
   timestamp: string;
