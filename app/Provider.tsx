@@ -13,17 +13,21 @@ import { useGetHistory } from "./hooks/useGetHistory";
 import toast from "react-hot-toast";
 import { useGetChatHistory } from "./hooks/useGetChatHistory";
 import { useChat } from "./hooks/useChat";
+import { useGetHistoryDetail } from "./hooks/useGetHistoryDetail";
 
 interface ContextType {
   image: File | null;
   setImage: (image: File) => void;
-  predict: (modelType: string) => void;
+  predict: () => void;
   isPredicting: boolean;
   predictData: IPredictModel | null;
   histories: IHistories | null;
   chatHistories: IChatHistories | null;
   sendChat: (message: string) => void;
   isChatting: boolean;
+  historyDetail: () => void;
+  recordId: number;
+  setRecordId: (recordId: number) => void;
 }
 
 const Context = createContext<ContextType | undefined>(undefined);
@@ -42,16 +46,16 @@ export const ImageProvider = ({ children }: { children: ReactNode }) => {
   const [chatHistories, setChatHistories] = useState<IChatHistories | null>(
     null
   );
+  const [recordId, setRecordId] = useState<number>(0);
   const { mutate, isPending: isPredicting, data } = usePredict();
 
   const { data: historiesData, refetch: refetchHistories } =
     useGetHistory(mockUser);
   const { data: chatHistoriesData } = useGetChatHistory(mockUser);
-  const predict = (modelType: string) => {
+  const predict = () => {
     if (!image) return toast.error("Please upload image first.");
     const formData = new FormData();
     formData.append("file", image);
-    formData.append("model_type", modelType);
     formData.append("username", "quynhnhu");
     const toastId = toast.loading("Detecting...");
     mutate(formData, {
@@ -93,6 +97,26 @@ export const ImageProvider = ({ children }: { children: ReactNode }) => {
     );
   };
 
+  const { refetch: refetchHistoryDetail } = useGetHistoryDetail(recordId);
+
+  const historyDetail = async () => {
+    try {
+      const result = await refetchHistoryDetail();
+      if (result.data) {
+        setPredictData(result.data);
+      } else {
+        toast.error("No detail found for this history.");
+      }
+    } catch {
+      toast.error("Failed to fetch history detail.");
+    }
+  };
+  useEffect(() => {
+    if (recordId !== 0) {
+      historyDetail();
+    }
+  }, [recordId]);
+
   useEffect(() => {
     if (data) {
       setPredictData(data);
@@ -115,6 +139,9 @@ export const ImageProvider = ({ children }: { children: ReactNode }) => {
         chatHistories,
         sendChat,
         isChatting,
+        historyDetail,
+        recordId,
+        setRecordId,
       }}
     >
       {children}

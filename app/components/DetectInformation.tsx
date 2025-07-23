@@ -29,7 +29,10 @@ const DetectInformation = () => {
       </thead>
       <tbody className="text-gray-800">
         <Row label="Plant" detail={predictData.plant} />
-        <Row label="Top Prediction" detail={predictData.top_prediction} />
+        <Row
+          label="Top Prediction"
+          detail={predictData.top_prediction ?? predictData.disease_name}
+        />
         <Row
           label="Disease Confidences"
           detail={

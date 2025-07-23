@@ -1,6 +1,7 @@
 export interface IPredictModel {
   "plant": string,
   "top_prediction": string,
+  "disease_name": string,
   "disease_confidences":IDiseaseConfidence[],
   "explanation":IExplanation
 }
@@ -13,12 +14,19 @@ export interface IExplanation {
 }
 export interface IDiseaseConfidence {
     "disease": string,
-      "confidence":number
+    "confidence":number
 }
 export interface IHistoryItem {
-  full_name: string;
+  record_id: number;
+  plant: string;
+  severity_level: SEVERITY_LEVEL
   disease_name: string;
   timestamp: string;
+}
+export enum SEVERITY_LEVEL {
+  MEDIUM= 'medium',
+  LOW='low',
+  HIGH ='high'
 }
 export interface IHistories{
   history: IHistoryItem[]

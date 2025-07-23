@@ -64,22 +64,13 @@ const ImageChooser = () => {
       </div>
 
       {image && (
-        <div className="flex gap-2">
-          <button
-            onClick={() => predict("plantdoc")}
-            disabled={isPredicting}
-            className="rounded-sm bg-primary/90 hover:bg-primary disabled:bg-primary/40 py-1.5 px-4 enabled:cursor-pointer text-white"
-          >
-            Detect by Plant Doc
-          </button>
-          <button
-            onClick={() => predict("plantvillage")}
-            disabled={isPredicting}
-            className="rounded-sm bg-primary/90 hover:bg-primary disabled:bg-primary/40 py-1.5 px-4 enabled:cursor-pointer text-white"
-          >
-            Detect by Plant Village
-          </button>
-        </div>
+        <button
+          onClick={() => predict()}
+          disabled={isPredicting}
+          className="rounded-sm bg-primary/90 hover:bg-primary disabled:bg-primary/40 py-1.5 px-4 enabled:cursor-pointer text-white"
+        >
+          Detect
+        </button>
       )}
     </div>
   );

@@ -20,6 +20,10 @@ const nextConfig: NextConfig = {
         source: '/chat',
         destination: 'http://167.71.210.72:8000/chat',
       },
+      {
+        source: '/predict/history/detail/:id',
+        destination: 'http://167.71.210.72:8000/predict/history/detail/:id',
+      },
     ];
   },
 };
