@@ -55,6 +55,38 @@ export const healthyLevel = (level: SEVERITY_LEVEL) => {
     </Tippy>
   );
 };
+import { format, toZonedTime } from "date-fns-tz";
+import { isToday, isYesterday } from "date-fns";
+
+const VIETNAM_TIMEZONE = "Asia/Ho_Chi_Minh";
+
+export const formatToVietnamTime = (timestamp: string | Date) => {
+  let dateUtc: Date;
+
+  if (typeof timestamp === "string") {
+    // Convert "2025-07-24 17:11:57" => "2025-07-24T17:11:57Z"
+    const fixed = timestamp.replace(" ", "T") + "Z";
+    dateUtc = new Date(fixed);
+  } else {
+    dateUtc = timestamp;
+  }
+
+  const vnDate = toZonedTime(dateUtc, VIETNAM_TIMEZONE);
+
+  if (isToday(vnDate)) {
+    return `Today, ${format(vnDate, "HH:mm", {
+      timeZone: VIETNAM_TIMEZONE,
+    })}`;
+  } else if (isYesterday(vnDate)) {
+    return `Yesterday, ${format(vnDate, "HH:mm", {
+      timeZone: VIETNAM_TIMEZONE,
+    })}`;
+  } else {
+    return format(vnDate, "dd/MM/yyyy, HH:mm", {
+      timeZone: VIETNAM_TIMEZONE,
+    });
+  }
+};
 
 const DetectionHistory = () => {
   const { histories, setRecordId, historyDetail, exportHistory } =
@@ -73,7 +105,7 @@ const DetectionHistory = () => {
               <th className="p-2 text-left">Plant</th>
               <th className="p-2 text-left">Disease</th>
               <th className="p-2 text-left">Health level</th>
-              <th className="p-2 text-left">Time</th>
+              <th className="p-2 text-left pl-10">Time</th>
               <th className="p-2 text-left">Export</th>
             </tr>
           </thead>
@@ -93,38 +125,8 @@ const DetectionHistory = () => {
                   {healthyLevel(item.severity_level)}
                 </td>
                 <td className="p-2">
-                  {new Date(item.timestamp).toLocaleString()}
-                </td>
-                <td className="pl-5">
-                  <button
-                    onClick={(e) => {
-                      e.preventDefault();
-                      e.stopPropagation();
-                      exportHistory(item.record_id);
-                    }}
-                    className="text-primary cursor-pointer"
-                  >
-                    🖨️
-                  </button>
-                </td>
-              </tr>
-            ))}
-            {histories?.history.map((item, index) => (
-              <tr
-                onClick={() => {
-                  setRecordId(item.record_id);
-                  historyDetail();
-                }}
-                key={index}
-                className="border-t cursor-pointer hover:bg-gray-100 !h-3 border-gray-300"
-              >
-                <td className="p-2">{item.plant}</td>
-                <td className="p-2">{item.disease_name}</td>
-                <td className="pl-5 h-fit">
-                  {healthyLevel(item.severity_level)}
-                </td>
-                <td className="p-2">
-                  {new Date(item.timestamp).toLocaleString()}
+                  {formatToVietnamTime(item.timestamp)}
+                  {/* {new Date(item.timestamp).toLocaleString()} */}
                 </td>
                 <td className="pl-5">
                   <button
