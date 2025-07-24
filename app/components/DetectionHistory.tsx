@@ -11,15 +11,15 @@ export const healthyLevel = (level: SEVERITY_LEVEL) => {
 
   switch (level) {
     case SEVERITY_LEVEL.LOW:
-      color = "primary";
+      color = "var(--color-primary)";
       title = "Healthy leaf";
       break;
     case SEVERITY_LEVEL.MEDIUM:
-      color = "secondary";
+      color = "var(--color-three)";
       title = "Slightly diseased leaf";
       break;
     case SEVERITY_LEVEL.HIGH:
-      color = "three";
+      color = "var(--color-three)";
       title = "Heavily diseased leaf";
       break;
     default:
@@ -31,7 +31,7 @@ export const healthyLevel = (level: SEVERITY_LEVEL) => {
       className="w-10 h-10 grid place-items-center cursor-pointer"
       title={title}
     >
-      <FaLeaf className={`h-5 w-5 text-${color}`} />
+      <FaLeaf style={{ color }} className={`h-5 w-5 `} />
     </div>
   );
 };

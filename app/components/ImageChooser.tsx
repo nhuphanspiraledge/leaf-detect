@@ -38,6 +38,9 @@ const ImageChooser = () => {
   };
 
   useEffect(() => {
+    if (!image) {
+      setUploadedImg(undefined);
+    }
     if (image) {
       predict();
     }
@@ -71,7 +74,7 @@ const ImageChooser = () => {
       </div>
       <div className="flex gap-4">
         {/* Detection Preview */}
-        {image && (
+        {uploadedImg && (
           <div className="w-full border border-gray-300 rounded-lg bg-white p-1 pr-10 flex gap-6 items-center shadow">
             <div
               className="w-[180px] h-[180px] rounded-md border border-gray-200 bg-gray-100 bg-cover bg-center"
