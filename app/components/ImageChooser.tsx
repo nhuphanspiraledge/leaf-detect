@@ -53,7 +53,7 @@ const ImageChooser = () => {
       >
         <div className="flex flex-col items-center gap-2">
           <p className="text-sm text-gray-600">Choose a file or drag it here</p>
-          <p className="text-xs text-gray-400 mb-2">JPEG, PNG up to 5 MB</p>
+          <p className="text-xs text-gray-400 mb-2 ">JPEG, PNG up to 5 MB</p>
           <button
             onClick={() => fileInputRef.current?.click()}
             className="inline-flex cursor-pointer items-center gap-1 px-4 py-2 text-sm font-medium text-primary border border-primary rounded hover:bg-primary hover:text-white transition"
