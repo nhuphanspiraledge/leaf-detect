@@ -15,7 +15,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Tend | Leaf Detect",
+  title: "Leaf Scan AI",
   description: "Upload your leaf to detect diseases using AI models.",
   icons: {
     icon: "/tend.png",
