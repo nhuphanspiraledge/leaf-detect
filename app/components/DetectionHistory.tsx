@@ -1,9 +1,8 @@
 "use client";
 
-import React, { useState } from "react";
+import React from "react";
 import { useMyContext } from "../Provider";
 import { SEVERITY_LEVEL } from "../types";
-import { DayPicker, DateRange } from "react-day-picker";
 import "react-day-picker/dist/style.css";
 import { FaLeaf } from "react-icons/fa";
 
@@ -41,37 +40,12 @@ export const healthyLevel = (level: SEVERITY_LEVEL) => {
 const DetectionHistory = () => {
   const { histories, setRecordId, historyDetail, exportHistory } =
     useMyContext();
-  const [searchTerm, setSearchTerm] = useState("");
-  const [range, setRange] = useState<DateRange | undefined>(undefined);
-  const [showPicker, setShowPicker] = useState(false);
-
-  const filteredHistory = histories?.history.filter((item) => {
-    const matchesText =
-      item.plant?.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      item.disease_name?.toLowerCase().includes(searchTerm.toLowerCase());
-    const timestamp = new Date(item.timestamp);
-    const matchesStart = range?.from ? timestamp >= range.from : true;
-    const matchesEnd = range?.to ? timestamp <= range.to : true;
-    return matchesText && matchesStart && matchesEnd;
-  });
 
   return (
     <div className="overflow-hidden w-full max-w-4xl mx-auto">
       <h2 className="text-2xl font-bold text-center mb-2">Detection History</h2>
       <div className="flex flex-col md:flex-row md:items-center justify-end gap-2 mb-2">
-        <div className="relative w-full">
-          {showPicker && (
-            <div className="absolute z-[100] w-fit mt-2 bg-white shadow-md border rounded p-2">
-              <DayPicker
-                mode="range"
-                selected={range}
-                onSelect={setRange as any}
-                numberOfMonths={2}
-                required
-              />
-            </div>
-          )}
-        </div>
+        <div className="relative w-full"></div>
       </div>
       <div className="overflow-auto h-[calc(100vh-500px)] border border-r-0 border-gray-300">
         <table className="min-w-full h-full table-auto border-r border-gray-300">
@@ -85,7 +59,7 @@ const DetectionHistory = () => {
             </tr>
           </thead>
           <tbody className="text-gray-800">
-            {filteredHistory?.map((item, index) => (
+            {histories?.history.map((item, index) => (
               <tr
                 onClick={() => {
                   setRecordId(item.record_id);

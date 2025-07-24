@@ -118,7 +118,7 @@ export const ImageProvider = ({ children }: { children: ReactNode }) => {
     if (recordId !== 0) {
       historyDetail();
     }
-  }, [recordId]);
+  }, [recordId, historyDetail]);
 
   useEffect(() => {
     if (data) {
@@ -144,7 +144,7 @@ export const ImageProvider = ({ children }: { children: ReactNode }) => {
       document.body.appendChild(link);
       link.click();
       link.remove();
-    } catch (err: any) {
+    } catch (err) {
       console.error("Export failed:", err);
       toast.error("Export failed.");
     }
