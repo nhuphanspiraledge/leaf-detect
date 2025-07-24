@@ -1,9 +1,8 @@
 "use client";
 
-import React from "react";
+import React, { useState } from "react";
 import { useMyContext } from "../Provider";
 import { SEVERITY_LEVEL } from "../types";
-import "react-day-picker/dist/style.css";
 import { FaLeaf } from "react-icons/fa";
 
 export const healthyLevel = (level: SEVERITY_LEVEL) => {
@@ -16,11 +15,11 @@ export const healthyLevel = (level: SEVERITY_LEVEL) => {
       title = "Healthy leaf";
       break;
     case SEVERITY_LEVEL.MEDIUM:
-      color = "yellow-400";
+      color = "secondary";
       title = "Slightly diseased leaf";
       break;
     case SEVERITY_LEVEL.HIGH:
-      color = "red-600";
+      color = "three";
       title = "Heavily diseased leaf";
       break;
     default:
