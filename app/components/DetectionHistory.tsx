@@ -4,6 +4,9 @@ import React from "react";
 import { useMyContext } from "../Provider";
 import { SEVERITY_LEVEL } from "../types";
 import { FaLeaf } from "react-icons/fa";
+import Tippy from "@tippyjs/react";
+import "tippy.js/dist/tippy.css";
+import "tippy.js/animations/shift-away.css";
 
 export const healthyLevel = (level: SEVERITY_LEVEL) => {
   let title = "";
@@ -23,16 +26,33 @@ export const healthyLevel = (level: SEVERITY_LEVEL) => {
       title = "Heavily diseased leaf";
       break;
     default:
+      color = "#6c757d";
       title = "Unknown health status";
   }
 
   return (
-    <div
-      className="w-10 h-10 grid place-items-center cursor-pointer"
-      title={title}
+    <Tippy
+      theme="leaf"
+      animation="shift-away"
+      interactive={true}
+      placement="top"
+      maxWidth="220px"
+      content={
+        <>
+          <div className="flex items-center gap-2 mb-1">
+            <FaLeaf className="text-lg" style={{ color }} />
+            <span className="font-bold text-md">{title}</span>
+          </div>
+          <p className="text-sm text-gray-600">
+            This leaf was detected with a {title.toLowerCase()}.
+          </p>
+        </>
+      }
     >
-      <FaLeaf style={{ color }} className={`h-5 w-5 `} />
-    </div>
+      <div className="w-10 h-10 grid place-items-center cursor-pointer">
+        <FaLeaf className="h-5 w-5" style={{ color }} />
+      </div>
+    </Tippy>
   );
 };
 
