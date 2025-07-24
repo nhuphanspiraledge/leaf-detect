@@ -1,6 +1,7 @@
 "use client";
 
 import { useMyContext } from "../Provider";
+import { healthyLevel } from "./DetectionHistory";
 
 const Row = ({ label, detail }: { label: string; detail: React.ReactNode }) => (
   <tr className="border-t border-gray-300 align-top">
@@ -31,8 +32,15 @@ const DetectInformation = () => {
         <Row label="Plant" detail={predictData.plant} />
         <Row
           label="Top Prediction"
-          detail={predictData.top_prediction ?? predictData.disease_name}
+          detail={
+            <span className="inline-flex items-center">
+              {predictData.top_prediction ?? predictData.disease_name}
+              {predictData.severity_level &&
+                healthyLevel(predictData.severity_level)}
+            </span>
+          }
         />
+
         <Row
           label="Disease Confidences"
           detail={

@@ -9,12 +9,12 @@ const nextConfig: NextConfig = {
         destination: 'http://167.71.210.72:8000/predict',
       },
       {
-        source: '/predict/history/quynhnhu',
-        destination: 'http://167.71.210.72:8000/predict/history/quynhnhu',
+        source: '/predict/history/yenly',
+        destination: 'http://167.71.210.72:8000/predict/history/yenly',
       },
       {
-        source: '/chat/history/quynhnhu',
-        destination: 'http://167.71.210.72:8000/chat/history/quynhnhu',
+        source: '/chat/history/yenly',
+        destination: 'http://167.71.210.72:8000/chat/history/yenly',
       },
       {
         source: '/chat',
@@ -23,6 +23,10 @@ const nextConfig: NextConfig = {
       {
         source: '/predict/history/detail/:id',
         destination: 'http://167.71.210.72:8000/predict/history/detail/:id',
+      },
+      {
+        source: '/predict/history/detail/:id/export',
+        destination: 'http://167.71.210.72:8000/predict/history/detail/:id/export',
       },
     ];
   },

@@ -3,7 +3,9 @@ export interface IPredictModel {
   "top_prediction": string,
   "disease_name": string,
   "disease_confidences":IDiseaseConfidence[],
-  "explanation":IExplanation
+  "explanation":IExplanation,
+  heatmap:string;
+  error: string;severity_level: SEVERITY_LEVEL
 }
 export interface IExplanation {
      "description": string,

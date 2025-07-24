@@ -14,6 +14,7 @@ import toast from "react-hot-toast";
 import { useGetChatHistory } from "./hooks/useGetChatHistory";
 import { useChat } from "./hooks/useChat";
 import { useGetHistoryDetail } from "./hooks/useGetHistoryDetail";
+import { useExport } from "./hooks/useExport";
 
 interface ContextType {
   image: File | null;
@@ -28,6 +29,7 @@ interface ContextType {
   historyDetail: () => void;
   recordId: number;
   setRecordId: (recordId: number) => void;
+  exportHistory: (record_id: number) => void;
 }
 
 const Context = createContext<ContextType | undefined>(undefined);
@@ -39,7 +41,7 @@ export const useMyContext = (): ContextType => {
 };
 
 export const ImageProvider = ({ children }: { children: ReactNode }) => {
-  const mockUser = "quynhnhu";
+  const mockUser = "yenly";
   const [image, setImage] = useState<File | null>(null);
   const [predictData, setPredictData] = useState<IPredictModel | null>(null);
   const [histories, setHistories] = useState<IHistories | null>(null);
@@ -57,14 +59,14 @@ export const ImageProvider = ({ children }: { children: ReactNode }) => {
     const formData = new FormData();
     formData.append("file", image);
     formData.append("username", "quynhnhu");
-    const toastId = toast.loading("Detecting...");
     mutate(formData, {
       onError: () => {
-        toast.dismiss(toastId);
         toast.error("Please re-upload image, error while detecting.");
       },
       onSuccess: async (result) => {
-        toast.dismiss(toastId);
+        if (result.error) {
+          return toast.error(result.error);
+        }
         toast.success("Detection completed!");
         setPredictData(result);
         const refetched = await refetchHistories();
@@ -101,6 +103,7 @@ export const ImageProvider = ({ children }: { children: ReactNode }) => {
 
   const historyDetail = async () => {
     try {
+      setImage(null);
       const result = await refetchHistoryDetail();
       if (result.data) {
         setPredictData(result.data);
@@ -127,6 +130,26 @@ export const ImageProvider = ({ children }: { children: ReactNode }) => {
     if (chatHistoriesData) setChatHistories(chatHistoriesData);
   }, [chatHistoriesData]);
 
+  const { mutateAsync: exportMutate } = useExport();
+
+  const exportHistory = async (record_id: number) => {
+    try {
+      const data = await exportMutate(record_id); // ← truyền id vào đây
+
+      const blob = new Blob([data], { type: "application/csv" });
+      const url = window.URL.createObjectURL(blob);
+      const link = document.createElement("a");
+      link.href = url;
+      link.setAttribute("download", `report_${record_id}.csv`);
+      document.body.appendChild(link);
+      link.click();
+      link.remove();
+    } catch (err: any) {
+      console.error("Export failed:", err);
+      toast.error("Export failed.");
+    }
+  };
+
   return (
     <Context.Provider
       value={{
@@ -142,6 +165,7 @@ export const ImageProvider = ({ children }: { children: ReactNode }) => {
         historyDetail,
         recordId,
         setRecordId,
+        exportHistory,
       }}
     >
       {children}
