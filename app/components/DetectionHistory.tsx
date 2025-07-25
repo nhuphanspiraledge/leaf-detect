@@ -22,7 +22,7 @@ export const healthyLevel = (level: SEVERITY_LEVEL) => {
       title = "Slightly diseased leaf";
       break;
     case SEVERITY_LEVEL.HIGH:
-      color = "var(--color-three)";
+      color = "var(--color-secondary)";
       title = "Heavily diseased leaf";
       break;
     default:
